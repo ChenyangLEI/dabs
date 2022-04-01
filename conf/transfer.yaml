@@ -1,9 +1,10 @@
 ckpt: null
-data_root: /data2/atamkin/DATASETS
+data_root: /home/aiscuser/dabs/DATASETS
 gpus: 0
 
+
 exp:
-  base_dir: /mnt/fs2/atamkin/domain-agnostic/models
+  base_dir: /mnt/input/projects/dabs/models
   name: ???
 
 trainer:
