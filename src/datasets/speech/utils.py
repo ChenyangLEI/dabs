@@ -18,8 +18,9 @@ def download_and_extract_archive(
     if not filename:
         filename = os.path.basename(url)
 
-    print('Extracting {} to {}'.format(archive, extract_root))
+    os.makedirs(download_root, exist_ok=True)
     archive = os.path.join(download_root, filename)
+    print('Extracting {} to {}'.format(archive, extract_root))
     p = subprocess.Popen(['wget', url, '-O', archive])
     p.wait()
 
