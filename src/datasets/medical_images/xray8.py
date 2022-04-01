@@ -91,7 +91,7 @@ class ChestXray8(VisionDataset):
         if os.path.isdir(self.image_root):
             print('Images already downloaded')
             return
-        os.mkdir(self.root)
+        os.makedirs(self.root, exist_ok=True)
         print('Downloading images...')
         for i, link in enumerate(CHEST_XRAY_8_LINKS):
             download_and_extract_archive(link, download_root=self.root, filename='chestxray8_images_{}.tar.gz'.format(i))
