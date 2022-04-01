@@ -13,7 +13,7 @@ def run(config):
 
     from src import online_evaluator
     from src.datasets.catalog import MULTILABEL_DATASETS, PRETRAINING_DATASETS, UNLABELED_DATASETS
-    from src.systems import emix, shed
+    from src.systems import emix, shed, estyle
 
     pl.seed_everything(config.trainer.seed)
 
@@ -28,6 +28,8 @@ def run(config):
 
     if config.algorithm == 'emix':
         system = emix.EMixSystem(config)
+    elif config.algorithm == 'estyle':
+        system = estyle.EStyleSystem(config)
     elif config.algorithm == 'shed':
         system = shed.ShEDSystem(config)
     else:
