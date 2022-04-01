@@ -31,7 +31,7 @@ class ImageNet(Dataset):
         if download and not os.path.exists(self.root):
             print('ImageNet not publicly available. Please edit self.root to point to your ImageNet path.')
 
-        root = os.path.join(self.root, 'train' if train else 'validation')
+        root = os.path.join(self.root, 'train' if train else 'val')
         self.dataset = datasets.ImageFolder(root=root)
 
     def __getitem__(self, index):
