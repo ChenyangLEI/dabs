@@ -103,7 +103,8 @@ class EStyleSystem(BaseSystem):
         
         # Use instance augmentation
         # print("embs before aug:", embs.shape, embs.mean())
-        embs = self.instance_aug(embs, spatialvar=self.config.spatialaug, spatialmean=self.config.spatialaug)
+        if self.config.spatialaug < 0:
+            embs = self.instance_aug(embs, spatialvar=self.config.spatialaug, spatialmean=self.config.spatialaug)
         # print("embs after aug:", embs.shape, embs.mean())
 
         # Sample mixing coefficient from beta distribution.
@@ -117,6 +118,9 @@ class EStyleSystem(BaseSystem):
         randidx = torch.randperm(batch_size, device=embs.device)
         embs_mix = embs[randidx].detach()
         embs_mix = mix_coeff * embs + (1 - mix_coeff) * embs_mix
+        if self.config.spatialaug < 0:
+            embs_mix = self.instance_aug(embs_mix, spatialvar=-self.config.spatialaug, spatialmean=-self.config.spatialaug)
+
         # print("embs after mix:", embs_mix.shape, embs_mix.mean())
 
         # forward
