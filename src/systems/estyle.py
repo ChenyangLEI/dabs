@@ -103,7 +103,7 @@ class EStyleSystem(BaseSystem):
         
         # Use instance augmentation
         # print("embs before aug:", embs.shape, embs.mean())
-        if self.config.spatialaug < 0:
+        if self.config.spatialaug >= 0:
             embs = self.instance_aug(embs, spatialvar=self.config.spatialaug, spatialmean=self.config.spatialaug)
         # print("embs after aug:", embs.shape, embs.mean())
 
