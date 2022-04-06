@@ -24,7 +24,7 @@ class ImageNet(Dataset):
 
     def __init__(self, base_root: str, download: bool = False, train: bool = True) -> None:
         super().__init__()
-        self.root = '/data5/chengxuz/Dataset/imagenet_raw'
+        self.root = '/mnt/input/data/ImageNet'
         if not os.path.isdir(self.root):
             os.makedirs(self.root)
 
