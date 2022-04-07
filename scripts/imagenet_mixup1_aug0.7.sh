@@ -2,11 +2,12 @@
 
 DATA=imagenet
 # DATA=mc4
-AUG=0.7
+AUG=$AUG
+
+GPU=$GPU
 MIXUP=1
 ALGO=estyle
 MODEL=$ALGO-mixup$MIXUP-aug$AUG
-GPU=5
 CUDA_VISIBLE_DEVICES=$GPU python pretrain.py exp.name=$DATA-$MODEL dataset=$DATA algorithm=$ALGO spatialaug=$AUG mixup=$MIXUP
 
 
