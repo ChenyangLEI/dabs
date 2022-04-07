@@ -186,6 +186,7 @@ class VQA(VisionDataset):
         ).squeeze(0)
 
 #        return index, image, tokens, torch.tensor([label], dtype=torch.long)
+        # return index, image, tokens, torch.tensor([label], dtype=torch.long)
         return index, image, tokens, torch.tensor(label, dtype=torch.long)
 
     def download(self) -> None:
