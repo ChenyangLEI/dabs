@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 DATA=mscoco
 AUG=$AUG
 GPU=$GPU
@@ -19,7 +18,6 @@ DATA2=paws_de
 TRANSFER=$DATA-to-$DATA2-$MODEL
 #CUDA_VISIBLE_DEVICES=$GPU python transfer.py exp.name=$TRANSFER dataset=$DATA2 ckpt=$CKPT
 
-=======
 # python pretrain.py exp.name=<experiment-name> dataset=<dataset> algorithm=<algorithm>
 AUG=$AUG
 GPU=$GPU
