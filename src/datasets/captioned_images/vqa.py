@@ -185,7 +185,8 @@ class VQA(VisionDataset):
             return_tensors='pt',
         ).squeeze(0)
 
-        return index, image, tokens, torch.tensor([label], dtype=torch.long)
+#        return index, image, tokens, torch.tensor([label], dtype=torch.long)
+        return index, image, tokens, torch.tensor(label, dtype=torch.long)
 
     def download(self) -> None:
         '''Download components from the COMPONENTS dict by name. The function checks if the components
