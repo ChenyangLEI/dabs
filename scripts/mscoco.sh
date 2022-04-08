@@ -15,7 +15,7 @@ unzip test2017.zip
 unzip train2017.zip
 unzip val2017.zip
 unzip annotations_trainval2017.zip
-cd ~/dabs
+cd /home/aiscuser/dabs
 
 CUDA_VISIBLE_DEVICES=$GPU python pretrain.py exp.name=$DATA-$MODEL dataset=$DATA algorithm=$ALGO spatialaug=$AUG mixup=$MIXUP
 
