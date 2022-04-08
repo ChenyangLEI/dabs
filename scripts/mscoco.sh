@@ -5,9 +5,11 @@ MIXUP=1
 ALGO=estyle
 MODEL=$ALGO-mixup$MIXUP-aug$AUG
 
-mkdir /home/aiscuser/dabs/DATASETS/captioned_images/mscoco
-cp /mnt/input/data/coco_raw/*zip /home/aiscuser/dabs/DATASETS/captioned_images/mscoco
-cd /home/aiscuser/dabs/DATASETS/captioned_images/mscoco
+mkdir $PWD/DATASETS
+mkdir $PWD/DATASETS/captioned_images
+mkdir $PWD/DATASETS/captioned_images/mscoco
+cp /mnt/input/data/coco_raw/*zip $PWD/DATASETS/captioned_images/mscoco
+cd $PWD/DATASETS/captioned_images/mscoco
 
 unzip test2017.zip
 unzip train2017.zip
