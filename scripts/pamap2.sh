@@ -1,7 +1,5 @@
-# python pretrain.py exp.name=<experiment-name> dataset=<dataset> algorithm=<algorithm>
-
 DATA=pamap2
-AUG=0
+AUG=$AUG
 MIXUP=1
 GPU=0
 ALGO=estyle
