@@ -28,3 +28,4 @@ defaults:
 
 spatialaug: 0
 mixup: 1
+ratio: 1

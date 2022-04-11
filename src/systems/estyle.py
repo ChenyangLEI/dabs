@@ -93,7 +93,7 @@ class EStyleSystem(BaseSystem):
         x = torch.clamp(x, min=value_min.item(), max=value_max.item())
         return x
 
-    def ssl_forward(self, batch, prehead=False):
+    def ssl_forward(self, batch, prehead=False, training=True):
         batch = batch[1:-1]  # could be multiple tensors here
 
         # Embed first.
@@ -120,8 +120,20 @@ class EStyleSystem(BaseSystem):
         embs_mix = mix_coeff * embs + (1 - mix_coeff) * embs_mix
         if self.config.spatialaug < 0:
             embs_mix = self.instance_aug(embs_mix, spatialvar=-self.config.spatialaug, spatialmean=-self.config.spatialaug)
+            embs = self.instance_aug(embs, spatialvar=-self.config.spatialaug, spatialmean=-self.config.spatialaug)
+
 
         # print("embs after mix:", embs_mix.shape, embs_mix.mean())
+        if self.config.ratio < 1 and training:
+            b, n, c = embs_mix.size()
+            batch_indexs1 = torch.randint(n, (b, n))#.to(device)
+            batch_indexs2 = torch.randint(n, (b, n))#.to(device)
+            n_mask = n - int(self.config.ratio * n)
+            batch_index1 = batch_indexs1[:, :n_mask]
+            batch_index2 = batch_indexs2[:, :n_mask]
+            embs_mix[batch_index1] = 0
+            embs[batch_index2] = 0
+
 
         # forward
         embs_mix = self.model.encode(embs_mix, prehead=prehead)
@@ -142,7 +154,7 @@ class EStyleSystem(BaseSystem):
         return loss
 
     def validation_step(self, batch, batch_idx):
-        embs_i, embs_j, mix_coeff, randidx = self.ssl_forward(batch, prehead=False)
+        embs_i, embs_j, mix_coeff, randidx = self.ssl_forward(batch, prehead=False, training=False)
         loss, acc = self.objective(embs_i, embs_j, mix_coeff, randidx)
         return {'loss': loss.item(), 'acc': acc.item()}
 
