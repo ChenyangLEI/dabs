@@ -2,20 +2,11 @@
 AUG=$AUG
 GPU=$GPU
 DATA=imagenet
-<<<<<<< HEAD:scripts/imagenet_mixup1_aug0.7.sh
-# DATA=mc4
-AUG=$AUG
 
-GPU=$GPU
-MIXUP=1
-ALGO=estyle
-MODEL=$ALGO-mixup$MIXUP-aug$AUG
-=======
 MIXUP=1
 ALGO=estyle
 MODEL=$ALGO-mixup$MIXUP-aug$AUG
 
->>>>>>> d0bbf0e2c91885f6eb5d1ea7717a0c23fff05af4:scripts/imagenet.sh
 CUDA_VISIBLE_DEVICES=$GPU python pretrain.py exp.name=$DATA-$MODEL dataset=$DATA algorithm=$ALGO spatialaug=$AUG mixup=$MIXUP
 
 
