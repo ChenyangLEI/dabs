@@ -7,7 +7,7 @@ MIXUP=1
 ALGO=estyle
 MODEL=$ALGO-mixup$MIXUP-aug$AUG
 
-CUDA_VISIBLE_DEVICES=$GPU python pretrain.py exp.name=$DATA-$MODEL dataset=$DATA algorithm=$ALGO spatialaug=$AUG mixup=$MIXUP
+# CUDA_VISIBLE_DEVICES=$GPU python pretrain.py exp.name=$DATA-$MODEL dataset=$DATA algorithm=$ALGO spatialaug=$AUG mixup=$MIXUP
 
 
 
