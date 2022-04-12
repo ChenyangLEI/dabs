@@ -1,4 +1,4 @@
-DATA=pamap2
+DATA=imagenet
 if [ $AUG is '']
 then
     AUG=1
