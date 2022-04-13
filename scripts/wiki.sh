@@ -41,3 +41,16 @@ CUDA_VISIBLE_DEVICES=$GPU python transfer.py exp.name=$TRANSFER dataset=$DATA2 c
 DATA2=mrpc
 TRANSFER=$DATA-to-$DATA2-$MODEL
 CUDA_VISIBLE_DEVICES=$GPU python transfer.py exp.name=$TRANSFER dataset=$DATA2 ckpt=$CKPT
+
+DATA2=mnli_matched
+TRANSFER=$DATA-to-$DATA2-$MODEL
+CUDA_VISIBLE_DEVICES=$GPU python transfer.py exp.name=$TRANSFER dataset=$DATA2 ckpt=$CKPT
+
+DATA2=mnli_mismatched
+TRANSFER=$DATA-to-$DATA2-$MODEL
+CUDA_VISIBLE_DEVICES=$GPU python transfer.py exp.name=$TRANSFER dataset=$DATA2 ckpt=$CKPT
+
+DATA2=cola
+TRANSFER=$DATA-to-$DATA2-$MODEL
+CUDA_VISIBLE_DEVICES=$GPU python transfer.py exp.name=$TRANSFER dataset=$DATA2 ckpt=$CKPT
+
