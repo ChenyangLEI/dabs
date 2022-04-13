@@ -5,7 +5,7 @@ import torch.nn as nn
 import torch.nn.functional as F
 
 from src.systems.base_system import BaseSystem
-
+import numpy as np
 
 class EStyleSystem(BaseSystem):
     '''Implements the i-Mix algorithm on embedded inputs defined in https://arxiv.org/abs/2010.08887.
@@ -126,13 +126,22 @@ class EStyleSystem(BaseSystem):
         # print("embs after mix:", embs_mix.shape, embs_mix.mean())
         if self.config.ratio < 1 and training:
             b, n, c = embs_mix.size()
-            batch_indexs1 = torch.randint(n, (b, n))#.to(device)
-            batch_indexs2 = torch.randint(n, (b, n))#.to(device)
             n_mask = n - int(self.config.ratio * n)
-            batch_index1 = batch_indexs1[:, :n_mask]
-            batch_index2 = batch_indexs2[:, :n_mask]
-            embs_mix[batch_index1] = 0
-            embs[batch_index2] = 0
+            b_index, n_index1, n_index2 = [], [], []
+            for b_idx in range(b):
+                n_index1 = n_index1 + list(np.random.permutation(n)[:n_mask])
+                n_index2 = n_index2 + list(np.random.permutation(n)[:n_mask])
+                b_index = b_index + [b_idx] * n_mask
+
+ #           print("mean mix before:", embs_mix.mean(), embs_mix.size())
+#            print("mean mix before:", embs.mean(), embs.size())
+
+            embs_mix[b_index, n_index1] = 0
+            embs[b_index, n_index2] = 0
+
+#            print("mean mix before:", embs_mix.mean(), embs_mix.size())
+#            print("mean mix before:", embs.mean(), embs.size())
+
 
 
         # forward
