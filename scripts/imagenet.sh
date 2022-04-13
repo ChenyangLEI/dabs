@@ -33,7 +33,12 @@ DATA2=cifar10
 TRANSFER=$DATA-to-$DATA2-$MODEL
 CUDA_VISIBLE_DEVICES=$GPU python transfer.py exp.name=$TRANSFER dataset=$DATA2 ckpt=$CKPT
 
+
 DATA2=aircraft
 TRANSFER=$DATA-to-$DATA2-$MODEL
 CUDA_VISIBLE_DEVICES=$GPU python transfer.py exp.name=$TRANSFER dataset=$DATA2 ckpt=$CKPT
 
+cp -r /mnt/input/data/cu_birds ./DATASETS/natural_images/
+DATA2=cu_birds
+TRANSFER=$DATA-to-$DATA2-$MODEL
+CUDA_VISIBLE_DEVICES=$GPU python transfer.py exp.name=$TRANSFER dataset=$DATA2 ckpt=$CKPT
