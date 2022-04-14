@@ -28,7 +28,7 @@ else
 fi
 
 ALGO=estyle
-MODEL=$ALGO-mixup$MIXUP-aug$AUG
+MODEL=$ALGO-mixup$MIXUP-aug$AUG-ratio$RATIO
 CUDA_VISIBLE_DEVICES=$GPU python -W ignore pretrain.py exp.name=$DATA-$MODEL dataset=$DATA algorithm=$ALGO spatialaug=$AUG mixup=$MIXUP ratio=$RATIO
 echo MODEL $MODEL
 
