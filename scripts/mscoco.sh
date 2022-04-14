@@ -1,9 +1,30 @@
-AUG=$AUG
-GPU=$GPU
+if [ $AUG is '']
+then
+    AUG=1
+else
+    AUG=$AUG
+fi
+
+MIXUP=0
+if [ $GPU is '']
+then
+    GPU=0
+else
+    GPU=$GPU
+fi
+
+if [ $RATIO is '']
+then
+    RATIO=1
+else
+    RATIO=$RATIO
+fi
+
 DATA=mscoco
-MIXUP=1
 ALGO=estyle
 MODEL=$ALGO-mixup$MIXUP-aug$AUG
+
+echo 'MODEL:'  $MODEL
 
 mkdir $PWD/DATASETS
 mkdir $PWD/DATASETS/captioned_images
@@ -17,7 +38,9 @@ unzip val2017.zip
 unzip annotations_trainval2017.zip
 cd /home/aiscuser/dabs
 
-CUDA_VISIBLE_DEVICES=$GPU python pretrain.py exp.name=$DATA-$MODEL dataset=$DATA algorithm=$ALGO spatialaug=$AUG mixup=$MIXUP
+
+
+CUDA_VISIBLE_DEVICES=$GPU python pretrain.py exp.name=$DATA-$MODEL dataset=$DATA algorithm=$ALGO spatialaug=$AUG mixup=$MIXUP ratio=$RATIO
 
 
 SAVE_DIR=/mnt/input/projects/dabs/models/
