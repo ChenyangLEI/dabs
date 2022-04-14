@@ -1,13 +1,39 @@
 # python pretrain.py exp.name=<experiment-name> dataset=<dataset> algorithm=<algorithm>
-AUG=$AUG
-GPU=$GPU
 DATA=imagenet
 
-MIXUP=1
+if [ $AUG is '']
+then
+    AUG=1
+else
+    AUG=$AUG
+fi
+
+if [ $GPU is '']
+then
+    GPU=0
+else
+    GPU=$GPU
+fi
+
+if [ $RATIO is '']
+then
+    RATIO=1
+else
+    RATIO=$RATIO
+fi
+
+if [ $MIXUP is '']
+then
+    MIXUP=0
+else
+    MIXUP=$MIXUP
+fi
+
+
 ALGO=estyle
 MODEL=$ALGO-mixup$MIXUP-aug$AUG
 
-# CUDA_VISIBLE_DEVICES=$GPU python pretrain.py exp.name=$DATA-$MODEL dataset=$DATA algorithm=$ALGO spatialaug=$AUG mixup=$MIXUP
+CUDA_VISIBLE_DEVICES=$GPU python pretrain.py exp.name=$DATA-$MODEL dataset=$DATA algorithm=$ALGO spatialaug=$AUG mixup=$MIXUP ratio=$RATIO
 
 
 
