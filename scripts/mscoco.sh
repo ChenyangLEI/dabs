@@ -5,7 +5,13 @@ else
     AUG=$AUG
 fi
 
-MIXUP=0
+if [ $MIXUP is '']
+then
+    MIXUP=0
+else
+    MIXUP=$MIXUP
+fi
+
 if [ $GPU is '']
 then
     GPU=0
