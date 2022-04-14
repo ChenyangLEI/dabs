@@ -28,7 +28,7 @@ fi
 
 DATA=mscoco
 ALGO=estyle
-MODEL=$ALGO-mixup$MIXUP-aug$AUG
+MODEL=$ALGO-mixup$MIXUP-aug$AUG-ratio$RATIO
 
 echo 'MODEL:'  $MODEL
 
