@@ -89,7 +89,8 @@ class EStyleSystem(BaseSystem):
 
         value_min, value_max = torch.min(x), torch.max(x)
         stat_mean = torch.mean(x, dim=1, keepdims=True).detach()
-        x = (x - stat_mean) * (1 + gamma ) + (1 + beta) * stat_mean  
+        stat_std = torch.std(x, dim=1, keepdims=True).detach()
+        x = (x - stat_mean) * (1 + gamma ) + stat_mean + beta * stat_std
         x = torch.clamp(x, min=value_min.item(), max=value_max.item())
         return x
 
