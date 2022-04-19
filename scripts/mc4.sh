@@ -30,7 +30,7 @@ fi
 
 
 ALGO=estyle
-MODEL=$ALGO-mixup$MIXUP-aug$AUG-ratio$RATIO
+MODEL=$ALGO-mixup$MIXUP-aug$AUG-ratio$RATIO-log
 echo 'MODEL:'  $MODEL
 
 
