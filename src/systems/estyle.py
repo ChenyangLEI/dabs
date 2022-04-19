@@ -6,6 +6,7 @@ import torch.nn.functional as F
 
 from src.systems.base_system import BaseSystem
 import numpy as np
+import math 
 
 class EStyleSystem(BaseSystem):
     '''Implements the i-Mix algorithm on embedded inputs defined in https://arxiv.org/abs/2010.08887.
@@ -84,13 +85,15 @@ class EStyleSystem(BaseSystem):
     def instance_aug(self, x, spatialvar=1.0, spatialmean=1.0):
         gpu = x.get_device()
         b, n, c = x.size()
-        gamma = spatialvar * (2 * torch.rand((b, 1, c)).to("cuda:{}".format(gpu)) - 1 )
+#         gamma = 1 + spatialvar * (2 * torch.rand((b, 1, c)).to("cuda:{}".format(gpu)) - 1 )
+        gamma = math.log(spatialvar * 5.0) * (2 * torch.rand((b, 1, c)).to("cuda:{}".format(gpu)) - 1 )
+        gamma = torch.exp(gamma)
         beta = spatialmean * (2 * torch.rand((b, 1, c)).to("cuda:{}".format(gpu)) - 1 )
 
         value_min, value_max = torch.min(x), torch.max(x)
         stat_mean = torch.mean(x, dim=1, keepdims=True).detach()
         stat_std = torch.std(x, dim=1, keepdims=True).detach()
-        x = (x - stat_mean) * (1 + gamma ) + stat_mean + beta * stat_std
+        x = (x - stat_mean) * gamma + stat_mean + beta * stat_std
         x = torch.clamp(x, min=value_min.item(), max=value_max.item())
         return x
 
