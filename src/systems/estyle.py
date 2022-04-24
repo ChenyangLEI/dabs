@@ -86,8 +86,15 @@ class EStyleSystem(BaseSystem):
         gpu = x.get_device()
         b, n, c = x.size()
 #         gamma = 1 + spatialvar * (2 * torch.rand((b, 1, c)).to("cuda:{}".format(gpu)) - 1 )
-        gamma = math.log(spatialvar * 2.0) * (2 * torch.rand((b, 1, c)).to("cuda:{}".format(gpu)) - 1 )
-        gamma = torch.exp(gamma)
+
+#         gamma = math.log(spatialvar * 2.0) * (2 * torch.rand((b, 1, c)).to("cuda:{}".format(gpu)) - 1 )
+#         gamma = torch.exp(gamma)
+
+        gamma = spatialvar * torch.rand(b, 1, c).to("cuda:{}".format(gpu))
+        gamma_div = 1. / (gamma + 1e-6)
+        mask = (torch.rand(b, 1, c).to("cuda:{}".format(gpu))>0.5).to(torch.float32)
+        gamma = gamma * mask + (-mask + 1) * gamma_div
+
         beta = spatialmean * (2 * torch.rand((b, 1, c)).to("cuda:{}".format(gpu)) - 1 )
 
         value_min, value_max = torch.min(x), torch.max(x)
