@@ -90,7 +90,7 @@ class EStyleSystem(BaseSystem):
 #         gamma = math.log(spatialvar * 2.0) * (2 * torch.rand((b, 1, c)).to("cuda:{}".format(gpu)) - 1 )
 #         gamma = torch.exp(gamma)
 
-        gamma = spatialvar * torch.rand(b, 1, c).to("cuda:{}".format(gpu))
+        gamma = (1 + spatialvar) * torch.rand(b, 1, c).to("cuda:{}".format(gpu))
         gamma_div = 1. / (gamma + 1e-6)
         mask = (torch.rand(b, 1, c).to("cuda:{}".format(gpu))>0.5).to(torch.float32)
         gamma = gamma * mask + (-mask + 1) * gamma_div
